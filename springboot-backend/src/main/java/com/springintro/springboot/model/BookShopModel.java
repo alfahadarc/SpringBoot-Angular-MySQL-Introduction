@@ -19,10 +19,11 @@ import java.util.List;
 public class BookShopModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long shopNumber;
+    private long id;
     private String shopName;
     private String location;
-//    private List<BookModel> books;
+    @ManyToMany(mappedBy="shops")
+    private List<BookModel> books;
     private String contactNo;
     private String email;
 }

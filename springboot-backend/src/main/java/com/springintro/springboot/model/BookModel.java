@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,5 +24,10 @@ public class BookModel {
     private String author;
     private String genre;
     private String publisher;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "book_shop_join",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id", referencedColumnName = "id"))
+    private List<BookShopModel> shops;
 
 }

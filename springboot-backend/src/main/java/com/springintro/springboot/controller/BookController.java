@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api")
-@AllArgsConstructor
 public class BookController {
 
-    private final BookService bookService;
+    @Autowired
+    private  BookService bookService;
 
     @GetMapping("/books")
     public List<BookModel> getAllBooks(){
@@ -25,6 +25,12 @@ public class BookController {
     @PostMapping("/books/")
     public BookModel addNewBook(@RequestBody BookModel new_book){
         return bookService.addNewBook(new_book);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public BookModel deleteBook(@PathVariable("id") long id, BookModel model) {
+        return bookService.deleteById(id);
+
     }
 
 }
