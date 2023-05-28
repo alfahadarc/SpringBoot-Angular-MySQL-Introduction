@@ -46,4 +46,9 @@ public class BookService {
     public BookModel getBookById(long id) {
         return bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
     }
+
+    public List<BookModel> getBooksByIds(List<Long> bookList) {
+        return bookRepository.findAllById(bookList);
+    }
+
 }

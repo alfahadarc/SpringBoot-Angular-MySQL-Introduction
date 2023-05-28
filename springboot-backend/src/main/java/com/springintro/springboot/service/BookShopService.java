@@ -33,7 +33,7 @@ public class BookShopService {
 
     public BookShopModel addBookToShop(long id, List<Long> books_id) {
         BookShopModel shop = bookShopRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid shop Id:" + id));
         List<BookModel> books = new ArrayList<>();
         for (Long l :books_id) {
             BookModel book = bookRepo.findById(l)

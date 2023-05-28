@@ -1,12 +1,15 @@
 package com.springintro.springboot.controller;
 
 
+import com.springintro.springboot.model.AuthorModel;
+import com.springintro.springboot.model.BookArrayModel;
 import com.springintro.springboot.model.BookModel;
 import com.springintro.springboot.model.BookShopModel;
 import com.springintro.springboot.service.BookService;
 import com.springintro.springboot.service.BookShopService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +20,8 @@ public class BookShopController {
 
     @Autowired
     private BookShopService bookShopService;
+    @Autowired
+    private BookService bookService;
 
     @PostMapping("/shops")
     public BookShopModel addNewBookShop(@RequestBody BookShopModel new_bookShop){
@@ -35,8 +40,19 @@ public class BookShopController {
     }
 
     @PostMapping("/shops/books/{id}")
-    public BookShopModel addBooks(@PathVariable("id") long id,@RequestBody List<Long>  books){
-        return bookShopService.addBookToShop(id, books);
+    public ResponseEntity<BookShopModel> addBooks(@PathVariable("id") long id,@RequestBody BookArrayModel books_list){
+
+        BookShopModel shop = bookShopService.getShopById(id);
+        if (shop != null) {
+            List<BookModel> books = bookService.getBooksByIds(books_list.getIds());
+            if (!books.isEmpty()) {
+                shop.getBooks().addAll(books);
+                BookShopModel updatedShop = bookShopService.addNewShop(shop);
+
+                return ResponseEntity.ok(updatedShop);
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/shops/{id}")

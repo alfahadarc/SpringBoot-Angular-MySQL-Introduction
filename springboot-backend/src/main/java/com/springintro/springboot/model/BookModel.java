@@ -1,11 +1,9 @@
 package com.springintro.springboot.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -14,7 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="book")
-public class BookModel {
+@ToString
+public class BookModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
