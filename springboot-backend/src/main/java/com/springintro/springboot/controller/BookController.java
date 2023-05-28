@@ -22,15 +22,24 @@ public class BookController {
         return bookService.getAllBooks();
     }
 
+    @GetMapping("/books/{id}")
+    public BookModel getAllBooks(@PathVariable("id") long id){
+        return bookService.getBookById(id);
+    }
+
     @PostMapping("/books/")
     public BookModel addNewBook(@RequestBody BookModel new_book){
         return bookService.addNewBook(new_book);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public BookModel deleteBook(@PathVariable("id") long id, BookModel model) {
+    @DeleteMapping("/books/{id}")
+    public BookModel deleteBook(@PathVariable("id") long id) {
         return bookService.deleteById(id);
-
     }
+    @PutMapping("/books/{id}")
+    public BookModel updateBook(@PathVariable("id") long id,@RequestBody BookModel book){
+        return bookService.updateBook(id,book );
+    }
+
 
 }
