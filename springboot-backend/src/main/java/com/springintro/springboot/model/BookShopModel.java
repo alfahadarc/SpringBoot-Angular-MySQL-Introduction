@@ -18,13 +18,11 @@ import java.util.List;
 @Table(name="bookshop")
 public class BookShopModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long shopNumber;
-    @NotBlank(message = "Name is mandatory")
     private String shopName;
-    @NotBlank(message = "Location is mandatory")
     private String location;
-    private List<BookModel> books;
+//    private List<BookModel> books;
     private String contactNo;
     private String email;
 }

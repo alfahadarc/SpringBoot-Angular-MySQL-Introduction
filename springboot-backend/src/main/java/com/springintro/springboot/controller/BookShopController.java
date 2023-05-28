@@ -17,7 +17,7 @@ public class BookShopController {
 
     private BookShopService bookShopService;
 
-    @PostMapping("/books/")
+    @PostMapping("/shop/")
     public BookShopModel addNewBookShop(@RequestBody BookShopModel new_bookShop){
         return bookShopService.addNewShop(new_bookShop);
     }
