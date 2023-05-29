@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
+//hhtp client
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 //Materials
 import { MaterialModule } from 'src/app/material/material.module';
 
@@ -21,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ListbookComponent,
   ],
   imports: [
+    HttpClientModule,
     MaterialModule,
     BrowserModule,
     AppRoutingModule,

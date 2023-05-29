@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.print.Book;
 import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/api")
 public class BookController {
@@ -25,7 +25,6 @@ public class BookController {
     }
     @GetMapping("/books/")
     public List<BookModel> getBookByTitle(@RequestParam("title") String title){
-        System.out.println(title);
         return bookService.getBookByTitle(title);
     }
     @GetMapping("/books/{id}")
