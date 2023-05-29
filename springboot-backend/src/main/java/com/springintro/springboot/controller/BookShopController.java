@@ -34,6 +34,11 @@ public class BookShopController {
         return bookShopService.getAll();
     }
 
+    @GetMapping("/shops/")
+    public List<BookShopModel> getShopByTitle(@RequestParam("title") String title){
+        return bookShopService.getShopByTitle(title);
+    }
+
     @GetMapping("/shops/{id}")
     public BookShopModel getShopById(@PathVariable("id") long id){
         return bookShopService.getShopById(id);
@@ -59,8 +64,9 @@ public class BookShopController {
     public BookShopModel deleteShop(@PathVariable("id") long id) {
         return bookShopService.deleteById(id);
     }
-//    @PutMapping("/books/{id}")
-//    public BookModel updateBook(@PathVariable("id") long id,@RequestBody BookModel book){
-//        return bookService.updateBook(id,book );
-//    }
+    @PutMapping("/shops/{id}")
+    public BookShopModel updateBookShop(@PathVariable("id") long id,@RequestBody BookShopModel shop){
+        System.out.println(shop);
+        return bookShopService.updateBookShop(id,shop );
+    }
 }

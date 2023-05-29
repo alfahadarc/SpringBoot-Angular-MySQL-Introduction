@@ -51,4 +51,21 @@ public class BookShopService {
         bookShopRepo.delete(shop);
         return shop;
     }
+
+    public List<BookShopModel> getShopByTitle(String title) {
+        return bookShopRepo.findByTitleContainsIgnoreCase(title);
+    }
+
+    public BookShopModel updateBookShop(long id, BookShopModel old_shop) {
+
+        BookShopModel shop = bookShopRepo.findById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid shop Id:" + id));
+
+        shop.setTitle(old_shop.getTitle());
+        shop.setEmail(old_shop.getEmail());
+        shop.setLocation(old_shop.getLocation());
+        shop.setContactNo(old_shop.getContactNo());
+        shop.setBooks(old_shop.getBooks());
+        return bookShopRepo.save(shop);
+    }
 }

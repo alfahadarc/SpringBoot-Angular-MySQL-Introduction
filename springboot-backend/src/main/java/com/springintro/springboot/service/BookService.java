@@ -51,4 +51,15 @@ public class BookService {
         return bookRepository.findAllById(bookList);
     }
 
+    public List<BookModel> getBookByTitle(String title) {
+        return bookRepository.findByTitleContainsIgnoreCase(title);
+    }
+
+    public void deleteAll() {
+        bookRepository.deleteAll();
+    }
+
+    public List<BookModel> addAllBooks(List<BookModel> books) {
+        return bookRepository.saveAll(books);
+    }
 }
