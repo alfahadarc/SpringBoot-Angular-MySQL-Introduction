@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 //http client
@@ -15,6 +16,7 @@ import { ShopuiComponent } from './components/shopui/shopui.component';
 import { AddbookComponent } from './components/booksui/addbook/addbook.component';
 import { ListbookComponent } from './components/booksui/listbook/listbook.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditbookComponent } from './components/booksui/editbook/editbook.component';
 
 @NgModule({
   declarations: [
@@ -23,13 +25,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ShopuiComponent,
     AddbookComponent,
     ListbookComponent,
+    EditbookComponent,
   ],
   imports: [
     HttpClientModule,
     MaterialModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

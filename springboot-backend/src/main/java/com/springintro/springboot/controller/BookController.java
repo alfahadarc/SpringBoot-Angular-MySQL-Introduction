@@ -20,7 +20,6 @@ public class BookController {
 
     @GetMapping("/books")
     public List<BookModel> getAllBooks(){
-        System.out.println("title");
         return bookService.getAllBooks();
     }
     @GetMapping("/books/")

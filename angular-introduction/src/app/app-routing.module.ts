@@ -5,6 +5,7 @@ import { ShopuiComponent } from './components/shopui/shopui.component';
 import { AddbookComponent } from './components/booksui/addbook/addbook.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/book', pathMatch: 'full' },
   { path: 'book', component: BooksuiComponent },
   { path: 'shop', component: ShopuiComponent },
   {path:'addBook', component:AddbookComponent}

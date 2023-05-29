@@ -11,6 +11,7 @@ export class BooksService {
 
   constructor(private http: HttpClient) { 
     this.bookUrl = 'http://localhost:8080/api/books';
+    //edit url http://localhost:8080/api/books/5
   }
   public findAll(): Observable<any> {
     return this.http.get<any>(this.bookUrl);
@@ -18,5 +19,13 @@ export class BooksService {
 
   public save(book: any) {
     return this.http.post<any>(this.bookUrl, book);
+  }
+
+  public edit(id:any, data:any){
+    return this.http.put<any>(this.bookUrl+"/"+id, data)
+  }
+
+  public remove(id:any){
+    return this.http.delete<any>(this.bookUrl+"/"+id)
   }
 }
