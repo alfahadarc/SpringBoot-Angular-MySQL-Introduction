@@ -19,7 +19,6 @@ public class BookService {
     }
 
     public BookModel addNewBook(BookModel new_book){
-        System.out.println("hi");
         return bookRepository.save(new_book);
     }
 
@@ -29,4 +28,27 @@ public class BookService {
         bookRepository.delete(book);
         return book;
     }
+
+    public BookModel updateBook(long id, BookModel old_book) {
+        BookModel book = bookRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+
+        book.setAuthor(old_book.getAuthor());
+        book.setShops(old_book.getShops());
+        book.setGenre(old_book.getGenre());
+        book.setPrice(old_book.getPrice());
+        book.setPublisher(old_book.getPublisher());
+        book.setTitle(old_book.getTitle());
+        book.setYearOfPublish(old_book.getYearOfPublish());
+        return bookRepository.save(book);
+    }
+
+    public BookModel getBookById(long id) {
+        return bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+    }
+
+    public List<BookModel> getBooksByIds(List<Long> bookList) {
+        return bookRepository.findAllById(bookList);
+    }
+
 }
