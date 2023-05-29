@@ -9,14 +9,21 @@ import { BooksService } from 'src/app/services/book/books.service';
 })
 export class ListbookComponent implements OnInit {
 
+  private books:any;
   constructor(private bookService: BooksService) {
 
     this.bookService.findAll().subscribe({
-      next: (v) => console.log(v),
+      next: (v) => {
+        this.books=v
+        this.dataSource = this.books
+      },
       error: (e) => console.error(e),
       complete: () => console.info('complete') 
   });
   }
+
+  displayedColumns: string[] = ['title', 'author', 'genre', 'price', 'publisher', 'yearOfPublish', 'actions'];
+  dataSource:any;
 
   ngOnInit(): void {
   }
