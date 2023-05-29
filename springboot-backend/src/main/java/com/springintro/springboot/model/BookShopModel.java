@@ -1,6 +1,7 @@
 package com.springintro.springboot.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -20,7 +21,12 @@ public class BookShopModel {
     private long id;
     private String shopName;
     private String location;
-    @ManyToMany(mappedBy="shops")
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "book_shop_join",
+            joinColumns = @JoinColumn(name = "shop_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
+    @JsonManagedReference
     private List<BookModel> books;
     private String contactNo;
     private String email;
