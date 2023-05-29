@@ -19,14 +19,14 @@ public class BookShopModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String shopName;
+    private String title;
     private String location;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "book_shop_join",
             joinColumns = @JoinColumn(name = "shop_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
-    @JsonManagedReference
+
     private List<BookModel> books;
     private String contactNo;
     private String email;
