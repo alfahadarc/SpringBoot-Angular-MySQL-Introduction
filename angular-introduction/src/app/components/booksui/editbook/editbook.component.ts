@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BooksService } from 'src/app/services/book/books.service';
+import {ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class EditbookComponent implements OnInit {
   bookForm!: FormGroup;
   constructor( public dialogRef: MatDialogRef<EditbookComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder,
-    private bookService:BooksService) { }
+    private bookService:BooksService,private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     //console.log(this.data)
@@ -23,12 +24,12 @@ export class EditbookComponent implements OnInit {
 
   createForm(){
     this.bookForm = this.formBuilder.group({
-      title: [null, Validators.required],
-      price: [0.0, Validators.required],
-      yearOfPublish: [0, Validators.required],
-      author: [null, Validators.required],
-      genre: [null, Validators.required],
-      publisher: [null, Validators.required]
+      title: ["", Validators.required],
+      price: ["", Validators.required],
+      yearOfPublish: ["", Validators.required],
+      author: ["", Validators.required],
+      genre: ["", Validators.required],
+      publisher: ["", Validators.required]
     });
   }
 
@@ -40,6 +41,7 @@ export class EditbookComponent implements OnInit {
     this.bookService.edit(this.data.id, this.bookForm.value).subscribe(
      { next: (v)=>{
         console.log(v)
+        this.toastrService.success("Successfully Edited", "Success")
         this.dialogRef.close();
       },
       error: (e) => console.error(e),

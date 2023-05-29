@@ -31,8 +31,6 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
-
-
     @PostMapping("/books/")
     public BookModel addNewBook(@RequestBody BookModel new_book){
         return bookService.addNewBook(new_book);

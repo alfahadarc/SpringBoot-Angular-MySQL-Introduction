@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from 'src/app/services/book/books.service';
 import {MatDialog} from '@angular/material/dialog';
 import { EditbookComponent } from '../editbook/editbook.component';
+import {ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { AddbookComponent } from '../addbook/addbook.component';
 
 
 @Component({
@@ -12,7 +15,7 @@ import { EditbookComponent } from '../editbook/editbook.component';
 export class ListbookComponent implements OnInit {
 
   private books:any;
-  constructor(private bookService: BooksService,public dialog: MatDialog) {
+  constructor(private router: Router,private bookService: BooksService,public dialog: MatDialog,private toastrService: ToastrService) {
 this.getAllBooks();
    
   }
@@ -45,12 +48,24 @@ this.getAllBooks();
     this.bookService.remove(row.id).subscribe({
       next:(v)=>{
         console.log(v)
+        this.toastrService.warning("Successfully Removed", "Removed")
         this.getAllBooks()
       },
       error:(err)=> {
         console.log(err)
+        this.toastrService.error(err.error.error, "Error")
       },
     })
   }
+
+  goAddNewJob() {
+    const dialogRef = this.dialog.open(AddbookComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllBooks()
+    });
+  }
+
+
   
 }

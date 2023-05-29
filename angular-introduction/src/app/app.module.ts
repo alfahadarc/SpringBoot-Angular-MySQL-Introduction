@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 //Materials
 import { MaterialModule } from 'src/app/material/material.module';
 
+//toaster
+import { ToastrModule } from 'ngx-toastr';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BooksuiComponent } from './components/booksui/booksui.component';
@@ -34,6 +37,9 @@ import { EditbookComponent } from './components/booksui/editbook/editbook.compon
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
