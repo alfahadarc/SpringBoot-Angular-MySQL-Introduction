@@ -24,6 +24,7 @@ public class BookShopController {
     @Autowired
     private BookService bookService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/shops")
     public BookShopModel addNewBookShop(@RequestBody BookShopModel new_bookShop){
         return bookShopService.addNewShop(new_bookShop);

@@ -20,6 +20,10 @@ import { AddbookComponent } from './components/booksui/addbook/addbook.component
 import { ListbookComponent } from './components/booksui/listbook/listbook.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditbookComponent } from './components/booksui/editbook/editbook.component';
+import { AddshopComponent } from './components/shopui/addshop/addshop.component';
+import { ListshopComponent } from './components/shopui/listshop/listshop.component';
+import { EditshopComponent } from './components/shopui/editshop/editshop.component';
+import { BooksinshopComponent } from './components/shopui/booksinshop/booksinshop.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { EditbookComponent } from './components/booksui/editbook/editbook.compon
     AddbookComponent,
     ListbookComponent,
     EditbookComponent,
+    AddshopComponent,
+    ListshopComponent,
+    EditshopComponent,
+    BooksinshopComponent,
   ],
   imports: [
     HttpClientModule,

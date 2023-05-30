@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -18,9 +18,6 @@ export class BooksService {
     return this.http.get<any>(this.bookUrl);
   }
 
-  public save(book: any) {
-    return this.http.post<any>(this.bookUrl, book);
-  }
 
   public edit(id:any, data:any){
     return this.http.put<any>(this.bookUrl+"/"+id, data)

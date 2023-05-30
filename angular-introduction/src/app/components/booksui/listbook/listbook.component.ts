@@ -3,7 +3,6 @@ import { BooksService } from 'src/app/services/book/books.service';
 import {MatDialog} from '@angular/material/dialog';
 import { EditbookComponent } from '../editbook/editbook.component';
 import {ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { AddbookComponent } from '../addbook/addbook.component';
 
 
@@ -15,7 +14,7 @@ import { AddbookComponent } from '../addbook/addbook.component';
 export class ListbookComponent implements OnInit {
 
   private books:any;
-  constructor(private router: Router,private bookService: BooksService,public dialog: MatDialog,private toastrService: ToastrService) {
+  constructor(private bookService: BooksService,public dialog: MatDialog,private toastrService: ToastrService) {
 this.getAllBooks();
    
   }
