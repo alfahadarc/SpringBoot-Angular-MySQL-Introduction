@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BookShop } from 'src/app/models/bookshop';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +14,21 @@ export class ShopService {
     this.shopUrl = "http://localhost:8080/api/shops"
   }
 
-  public findAll(): Observable<any> {
-    return this.http.get<any>(this.shopUrl);
+  public findAll(): Observable<BookShop[]> {
+    return this.http.get<BookShop[]>(this.shopUrl);
   }
 
 
 
-  public edit(id:any, data:any){
-    return this.http.put<any>(this.shopUrl+"/"+id, data)
+  public edit(id:number, data:BookShop){
+    return this.http.put<BookShop>(this.shopUrl+"/"+id, data)
   }
 
-  public remove(id:any){
-    return this.http.delete<any>(this.shopUrl+"/"+id)
+  public remove(id:number){
+    return this.http.delete<BookShop>(this.shopUrl+"/"+id)
   }
 
-  public add(data:any){
+  public add(data:BookShop){
     return this.http.post(this.shopUrl, data)
   }
 }

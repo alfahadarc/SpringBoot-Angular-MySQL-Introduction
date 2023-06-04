@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Book } from 'src/app/models/book';
 
 @Component({
   selector: 'app-booksinshop',
@@ -8,12 +9,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class BooksinshopComponent implements OnInit {
   displayedColumns: string[] = ['title', 'author', 'genre', 'price', 'publisher', 'yearOfPublish'];
-  dataSource:any;
+  dataSource!:Book[];
   constructor(public dialogRef: MatDialogRef<BooksinshopComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any) { }
+    @Inject(MAT_DIALOG_DATA) public data:Book[]) { }
 
   ngOnInit(): void {
-    console.log(this.data)
     this.dataSource = this.data
   }
 

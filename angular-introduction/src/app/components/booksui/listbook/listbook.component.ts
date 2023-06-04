@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditbookComponent } from '../editbook/editbook.component';
 import { ToastrService } from 'ngx-toastr';
 import { AddbookComponent } from '../addbook/addbook.component';
+import { Book } from 'src/app/models/book';
 
 
 @Component({
@@ -13,7 +14,6 @@ import { AddbookComponent } from '../addbook/addbook.component';
 })
 export class ListbookComponent implements OnInit {
 
-  private books: any;
   constructor(private bookService: BooksService, public dialog: MatDialog,
     private toastrService: ToastrService) {
     this.getAllBooks();
@@ -22,8 +22,7 @@ export class ListbookComponent implements OnInit {
   getAllBooks() {
     this.bookService.findAll().subscribe({
       next: (v) => {
-        this.books = v
-        this.dataSource = this.books
+        this.dataSource = v
       },
       error: (e) => console.error(e),
       complete: () => console.info('complete')
@@ -31,11 +30,11 @@ export class ListbookComponent implements OnInit {
   }
 
   displayedColumns: string[] = ['Title', 'author', 'genre', 'price', 'publisher', 'yearOfPublish', 'actions', 'newcol'];
-  dataSource: any;
+  dataSource!: Book[];
 
   ngOnInit(): void {
   }
-  edit(row: any) {
+  edit(row: Book) {
     const dialogRef = this.dialog.open(EditbookComponent, {
       data: row,
     });
@@ -44,7 +43,7 @@ export class ListbookComponent implements OnInit {
       this.getAllBooks()
     });
   }
-  remove(row: any) {
+  remove(row: Book) {
     this.bookService.remove(row.id).subscribe({
       next: (v) => {
         console.log(v)

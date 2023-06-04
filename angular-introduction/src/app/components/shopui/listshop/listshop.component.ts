@@ -5,6 +5,7 @@ import { ShopService } from 'src/app/services/shop/shop.service';
 import { EditshopComponent } from '../editshop/editshop.component';
 import { AddshopComponent } from '../addshop/addshop.component';
 import { BooksinshopComponent } from '../booksinshop/booksinshop.component';
+import { BookShop } from 'src/app/models/bookshop';
 
 @Component({
   selector: 'app-listshop',
@@ -13,9 +14,9 @@ import { BooksinshopComponent } from '../booksinshop/booksinshop.component';
 })
 export class ListshopComponent implements OnInit {
 
-  private shop: any;
+  private shop!: BookShop;
   displayedColumns: string[] = ['title', 'location', 'email', 'contactNo', 'books', 'actions'];
-  dataSource: any;
+  dataSource!: BookShop[];
   constructor(private shopService: ShopService, public dialog: MatDialog, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
@@ -25,14 +26,13 @@ export class ListshopComponent implements OnInit {
   getAllShops() {
     this.shopService.findAll().subscribe({
       next: (v) => {
-        this.shop = v
-        this.dataSource = this.shop
+        this.dataSource = v
       },
       error: (e) => console.error(e),
       complete: () => console.info('complete')
     });
   }
-  edit(row: any) {
+  edit(row: BookShop) {
     const dialogRef = this.dialog.open(EditshopComponent, {
       data: row,
     });
@@ -41,7 +41,7 @@ export class ListshopComponent implements OnInit {
       this.getAllShops()
     });
   }
-  remove(row: any) {
+  remove(row: BookShop) {
     this.shopService.remove(row.id).subscribe({
       next: (v) => {
         console.log(v)
@@ -63,7 +63,7 @@ export class ListshopComponent implements OnInit {
     });
   }
 
-  showBooks(element:any){
+  showBooks(element:BookShop){
     const dialogRef = this.dialog.open(BooksinshopComponent,{
       data:element.books,
       width:'100%'

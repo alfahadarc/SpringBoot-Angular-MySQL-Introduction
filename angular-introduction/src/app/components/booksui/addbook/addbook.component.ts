@@ -30,11 +30,9 @@ export class AddbookComponent implements OnInit {
     if (this.bookForm.invalid) {
       return;
     }
-    console.log(this.bookForm.value)
   
     this.bookService.add( this.bookForm.value).subscribe(
      { next: (v)=>{
-        console.log(v)
         this.toastrService.success("Successfully Added", "Success")
         this.dialogRef.close();
       },

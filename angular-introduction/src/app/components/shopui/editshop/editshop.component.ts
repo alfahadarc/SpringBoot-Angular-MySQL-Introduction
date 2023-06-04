@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { Book } from 'src/app/models/book';
+import { BookShop } from 'src/app/models/bookshop';
 import { BooksService } from 'src/app/services/book/books.service';
 import { ShopService } from 'src/app/services/shop/shop.service';
 
@@ -12,9 +14,9 @@ import { ShopService } from 'src/app/services/shop/shop.service';
 })
 export class EditshopComponent implements OnInit {
   shopForm!: FormGroup
-  availableBooks: any;
+  availableBooks!: Book[];
   constructor(public dialogRef: MatDialogRef<EditshopComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: BookShop, private formBuilder: FormBuilder,
     private shopService: ShopService, private toastrService: ToastrService, private bookService: BooksService) { }
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class EditshopComponent implements OnInit {
   get books() {
     return this.shopForm.controls['books'] as FormArray
   }
-  initializeFormWithData(data: any) {
+  initializeFormWithData(data: BookShop) {
     this.shopForm.patchValue(data);
 
     if (data.books != null) {
@@ -56,7 +58,7 @@ export class EditshopComponent implements OnInit {
         this.shopForm.controls["books"]
       )
 
-      this.data.books.forEach((book: any) => {
+      data.books.forEach((book: Book) => {
         booksControl.push(
           this.formBuilder.group({
             title: book.title,
@@ -78,7 +80,7 @@ export class EditshopComponent implements OnInit {
     if (selectedBookControl && selectedBookControl.value) {
       const selectedBookId = selectedBookControl.value;
 
-      const selectedBook = this.availableBooks.find((book: any) => book.id == selectedBookId);
+      const selectedBook = this.availableBooks.find((book: Book) => book.id == selectedBookId);
 
       if (selectedBook) {
         let booksControl = <FormArray>(
@@ -96,7 +98,7 @@ export class EditshopComponent implements OnInit {
           })
         )
 
-        const index = this.availableBooks.findIndex((book: any) => book.id == selectedBookId);
+        const index = this.availableBooks.findIndex((book: Book) => book.id == selectedBookId);
         if (index !== -1) {
           this.availableBooks.splice(index, 1);
         }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { Book } from 'src/app/models/book';
 import { BooksService } from 'src/app/services/book/books.service';
 import { ShopService } from 'src/app/services/shop/shop.service';
 
@@ -13,7 +14,7 @@ import { ShopService } from 'src/app/services/shop/shop.service';
 export class AddshopComponent implements OnInit {
 
   shopForm!:FormGroup
-  availableBooks:any;
+  availableBooks!:Book[];
   constructor(public dialogRef:MatDialogRef<AddshopComponent>,private formBuilder:FormBuilder,private shopService:ShopService,private toastrService: ToastrService, private bookService:BooksService) { }
 
   ngOnInit(): void {
@@ -61,7 +62,7 @@ export class AddshopComponent implements OnInit {
       const selectedBookId = selectedBookControl.value;
       
       // Find the selected book object from the availableBooks array
-      const selectedBook = this.availableBooks.find((book: any) => book.id==selectedBookId);
+      const selectedBook = this.availableBooks.find((book: Book) => book.id==selectedBookId);
       if (selectedBook) {
         let booksControl = <FormArray>(
           this.shopForm.controls["books"]
@@ -78,7 +79,7 @@ export class AddshopComponent implements OnInit {
           })
         )  
         // Remove the selected book from the available books list
-        const index = this.availableBooks.findIndex((book: any) => book.id == selectedBookId);
+        const index = this.availableBooks.findIndex((book: Book) => book.id == selectedBookId);
         if (index !== -1) {
           this.availableBooks.splice(index, 1);
         }
@@ -105,11 +106,11 @@ export class AddshopComponent implements OnInit {
     }
    
     this.shopForm.removeControl("selectedBook")
-    console.log(this.shopForm.value)
+    
   
     this.shopService.add( this.shopForm.value).subscribe(
      { next: (v)=>{
-        console.log(v)
+        
         this.toastrService.success("Successfully Added", "Success")
         this.dialogRef.close();
       },

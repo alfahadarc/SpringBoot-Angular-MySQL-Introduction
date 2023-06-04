@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BooksService } from 'src/app/services/book/books.service';
 import {ToastrService } from 'ngx-toastr';
+import { Book } from 'src/app/models/book';
 
 
 @Component({
@@ -13,7 +14,7 @@ import {ToastrService } from 'ngx-toastr';
 export class EditbookComponent implements OnInit {
   bookForm!: FormGroup;
   constructor( public dialogRef: MatDialogRef<EditbookComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data: Book,private formBuilder: FormBuilder,
     private bookService:BooksService,private toastrService: ToastrService) { }
 
   ngOnInit(): void {
@@ -40,7 +41,6 @@ export class EditbookComponent implements OnInit {
   
     this.bookService.edit(this.data.id, this.bookForm.value).subscribe(
      { next: (v)=>{
-        console.log(v)
         this.toastrService.success("Successfully Edited", "Success")
         this.dialogRef.close();
       },
@@ -50,7 +50,7 @@ export class EditbookComponent implements OnInit {
    
   }
 
-  initializeFormWithData(data: any) {
+  initializeFormWithData(data: Book) {
     this.bookForm.patchValue(data);
   }
 
