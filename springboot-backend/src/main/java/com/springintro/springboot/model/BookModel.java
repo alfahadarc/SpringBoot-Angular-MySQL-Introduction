@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,8 +25,5 @@ public class BookModel implements Serializable {
     private String author;
     private String genre;
     private String publisher;
-    @ManyToMany(mappedBy="books")
-    @JsonBackReference
-    private List<BookShopModel> shops;
 
 }

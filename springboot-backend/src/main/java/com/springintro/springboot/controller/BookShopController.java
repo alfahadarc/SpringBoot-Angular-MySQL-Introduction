@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/api")
 public class BookShopController {
@@ -23,6 +24,7 @@ public class BookShopController {
     @Autowired
     private BookService bookService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/shops")
     public BookShopModel addNewBookShop(@RequestBody BookShopModel new_bookShop){
         return bookShopService.addNewShop(new_bookShop);
@@ -66,7 +68,6 @@ public class BookShopController {
     }
     @PutMapping("/shops/{id}")
     public BookShopModel updateBookShop(@PathVariable("id") long id,@RequestBody BookShopModel shop){
-        System.out.println(shop);
         return bookShopService.updateBookShop(id,shop );
     }
 }
