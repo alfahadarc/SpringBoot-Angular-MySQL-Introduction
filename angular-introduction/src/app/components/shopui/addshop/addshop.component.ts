@@ -40,6 +40,19 @@ export class AddshopComponent implements OnInit {
       books:  this.formBuilder.array([])
     });
   }
+  newBook(): FormGroup {
+    return this.formBuilder.group({
+      title: ["", Validators.required],
+      price: ["", Validators.required],
+      yearOfPublish: ["", Validators.required],
+      author: ["", Validators.required],
+      genre: ["", Validators.required],
+      publisher: ["", Validators.required]
+    });
+  }
+  get books() {
+    return this.shopForm.controls['books'] as FormArray
+  }
 
   addBook() {
     const selectedBookControl = this.shopForm.get('selectedBook');
@@ -50,9 +63,20 @@ export class AddshopComponent implements OnInit {
       // Find the selected book object from the availableBooks array
       const selectedBook = this.availableBooks.find((book: any) => book.id==selectedBookId);
       if (selectedBook) {
-        const booksArray = this.shopForm.get('books') as FormArray;
-        booksArray.push(new FormControl(selectedBook));
-  
+        let booksControl = <FormArray>(
+          this.shopForm.controls["books"]
+        )
+        booksControl.push(
+          this.formBuilder.group({
+            title: selectedBook.title,
+            price: selectedBook.price,
+            yearOfPublish: selectedBook.yearOfPublish,
+            author: selectedBook.author,
+            genre: selectedBook.genre,
+            publisher: selectedBook.publisher
+
+          })
+        )  
         // Remove the selected book from the available books list
         const index = this.availableBooks.findIndex((book: any) => book.id == selectedBookId);
         if (index !== -1) {
@@ -63,6 +87,13 @@ export class AddshopComponent implements OnInit {
         selectedBookControl.reset();
       }
     }
+  }
+  removeBook(index: number) {
+    const booksArray = this.shopForm.get('books') as FormArray;
+    const removedBook = booksArray.at(index).value;
+    booksArray.removeAt(index);
+
+    this.availableBooks.push(removedBook);
   }
   
   

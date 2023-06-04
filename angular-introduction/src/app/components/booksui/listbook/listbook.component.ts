@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from 'src/app/services/book/books.service';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EditbookComponent } from '../editbook/editbook.component';
-import {ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { AddbookComponent } from '../addbook/addbook.component';
 
 
@@ -13,28 +13,29 @@ import { AddbookComponent } from '../addbook/addbook.component';
 })
 export class ListbookComponent implements OnInit {
 
-  private books:any;
-  constructor(private bookService: BooksService,public dialog: MatDialog,private toastrService: ToastrService) {
-this.getAllBooks();
-   
+  private books: any;
+  constructor(private bookService: BooksService, public dialog: MatDialog,
+    private toastrService: ToastrService) {
+    this.getAllBooks();
+
   }
-  getAllBooks(){
+  getAllBooks() {
     this.bookService.findAll().subscribe({
       next: (v) => {
-        this.books=v
+        this.books = v
         this.dataSource = this.books
       },
       error: (e) => console.error(e),
-      complete: () => console.info('complete') 
-  });
+      complete: () => console.info('complete')
+    });
   }
 
-  displayedColumns: string[] = ['title', 'author', 'genre', 'price', 'publisher', 'yearOfPublish', 'actions'];
-  dataSource:any;
+  displayedColumns: string[] = ['Title', 'author', 'genre', 'price', 'publisher', 'yearOfPublish', 'actions', 'newcol'];
+  dataSource: any;
 
   ngOnInit(): void {
   }
-  edit(row:any){
+  edit(row: any) {
     const dialogRef = this.dialog.open(EditbookComponent, {
       data: row,
     });
@@ -43,21 +44,21 @@ this.getAllBooks();
       this.getAllBooks()
     });
   }
-  remove(row:any){
+  remove(row: any) {
     this.bookService.remove(row.id).subscribe({
-      next:(v)=>{
+      next: (v) => {
         console.log(v)
         this.toastrService.warning("Successfully Removed", "Removed")
         this.getAllBooks()
       },
-      error:(err)=> {
+      error: (err) => {
         console.log(err)
         this.toastrService.error(err.error.error, "Error")
       },
     })
   }
 
-  goAddNewJob() {
+  goAddNewBook() {
     const dialogRef = this.dialog.open(AddbookComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -66,5 +67,5 @@ this.getAllBooks();
   }
 
 
-  
+
 }

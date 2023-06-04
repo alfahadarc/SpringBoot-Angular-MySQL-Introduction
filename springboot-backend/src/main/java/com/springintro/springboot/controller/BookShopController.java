@@ -68,7 +68,6 @@ public class BookShopController {
     }
     @PutMapping("/shops/{id}")
     public BookShopModel updateBookShop(@PathVariable("id") long id,@RequestBody BookShopModel shop){
-        System.out.println(shop);
         return bookShopService.updateBookShop(id,shop );
     }
 }

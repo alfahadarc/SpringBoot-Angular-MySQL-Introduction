@@ -11,40 +11,92 @@ import { ShopService } from 'src/app/services/shop/shop.service';
   styleUrls: ['./editshop.component.css']
 })
 export class EditshopComponent implements OnInit {
-  shopForm!:FormGroup
-  availableBooks:any;
+  shopForm!: FormGroup
+  availableBooks: any;
   constructor(public dialogRef: MatDialogRef<EditshopComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder,
-    private shopService:ShopService,private toastrService: ToastrService,private bookService:BooksService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder,
+    private shopService: ShopService, private toastrService: ToastrService, private bookService: BooksService) { }
 
   ngOnInit(): void {
     this.createForm()
     this.getAllBooks()
     this.initializeFormWithData(this.data)
-    
+
   }
-  getAllBooks(){
-    this.bookService.findAll().subscribe({
-      next: (v) => {
-        this.availableBooks=v
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('complete') 
-  });
+  createForm() {
+    this.shopForm = this.formBuilder.group({
+      title: ["", Validators.required],
+      location: ["", Validators.required],
+      contactNo: ["", Validators.required],
+      email: ["", Validators.required],
+      selectedBook: [""],
+      books: this.formBuilder.array([
+
+      ])
+    });
   }
+  newBook(): FormGroup {
+    return this.formBuilder.group({
+      title: ["", Validators.required],
+      price: ["", Validators.required],
+      yearOfPublish: ["", Validators.required],
+      author: ["", Validators.required],
+      genre: ["", Validators.required],
+      publisher: ["", Validators.required]
+    });
+  }
+  get books() {
+    return this.shopForm.controls['books'] as FormArray
+  }
+  initializeFormWithData(data: any) {
+    this.shopForm.patchValue(data);
+
+    if (data.books != null) {
+      let booksControl = <FormArray>(
+        this.shopForm.controls["books"]
+      )
+
+      this.data.books.forEach((book: any) => {
+        booksControl.push(
+          this.formBuilder.group({
+            title: book.title,
+            price: book.price,
+            yearOfPublish: book.yearOfPublish,
+            author: book.author,
+            genre: book.genre,
+            publisher: book.publisher
+
+          })
+        )
+      });
+    }
+  }
+
   addBook() {
     const selectedBookControl = this.shopForm.get('selectedBook');
 
     if (selectedBookControl && selectedBookControl.value) {
       const selectedBookId = selectedBookControl.value;
 
-      const selectedBook = this.availableBooks.find((book:any) => book.id == selectedBookId);
+      const selectedBook = this.availableBooks.find((book: any) => book.id == selectedBookId);
 
       if (selectedBook) {
-        const booksArray = this.shopForm.get('books') as FormArray;
-        booksArray.push(new FormControl(selectedBook));
+        let booksControl = <FormArray>(
+          this.shopForm.controls["books"]
+        )
+        booksControl.push(
+          this.formBuilder.group({
+            title: selectedBook.title,
+            price: selectedBook.price,
+            yearOfPublish: selectedBook.yearOfPublish,
+            author: selectedBook.author,
+            genre: selectedBook.genre,
+            publisher: selectedBook.publisher
 
-        const index = this.availableBooks.findIndex((book:any) => book.id == selectedBookId);
+          })
+        )
+
+        const index = this.availableBooks.findIndex((book: any) => book.id == selectedBookId);
         if (index !== -1) {
           this.availableBooks.splice(index, 1);
         }
@@ -56,23 +108,19 @@ export class EditshopComponent implements OnInit {
     }
   }
 
-  get books(){
-    return this.shopForm.controls['books'] as FormArray
-  }
-
-  createForm(){
-    this.shopForm = this.formBuilder.group({
-      title: ["", Validators.required],
-      location: ["", Validators.required],
-      contactNo: ["", Validators.required],
-      email: ["", Validators.required],
-      selectedBook:[""],
-      books:  this.formBuilder.array([])
+  getAllBooks() {
+    this.bookService.findAll().subscribe({
+      next: (v) => {
+        this.availableBooks = v
+      },
+      error: (e) => console.error(e),
+      complete: () => console.info('complete')
     });
   }
-  initializeFormWithData(data: any) {
-    this.shopForm.patchValue(data);
-  }
+
+
+
+
   removeBook(index: number) {
     const booksArray = this.shopForm.get('books') as FormArray;
     const removedBook = booksArray.at(index).value;
@@ -85,17 +133,18 @@ export class EditshopComponent implements OnInit {
     if (this.shopForm.invalid) {
       return;
     }
-  
+
     this.shopService.edit(this.data.id, this.shopForm.value).subscribe(
-     { next: (v)=>{
-        console.log(v)
-        this.toastrService.success("Successfully Edited", "Success")
-        this.dialogRef.close();
-      },
-      error: (e) => console.error(e),
-      complete: () => console.info('complete') 
-    })
-   
+      {
+        next: (v) => {
+          console.log(v)
+          this.toastrService.success("Successfully Edited", "Success")
+          this.dialogRef.close();
+        },
+        error: (e) => console.error(e),
+        complete: () => console.info('complete')
+      })
+
   }
 
 }

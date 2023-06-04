@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BookShopService {
@@ -34,7 +36,7 @@ public class BookShopService {
     public BookShopModel addBookToShop(long id, List<Long> books_id) {
         BookShopModel shop = bookShopRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid shop Id:" + id));
-        List<BookModel> books = new ArrayList<>();
+        Set<BookModel> books = new HashSet<>();
         for (Long l :books_id) {
             BookModel book = bookRepo.findById(l)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
