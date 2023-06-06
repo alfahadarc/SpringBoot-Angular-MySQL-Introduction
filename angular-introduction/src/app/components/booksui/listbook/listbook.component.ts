@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BooksService } from 'src/app/services/book/books.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditbookComponent } from '../editbook/editbook.component';
 import { ToastrService } from 'ngx-toastr';
 import { AddbookComponent } from '../addbook/addbook.component';
 import { Book } from 'src/app/models/book';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -13,27 +15,30 @@ import { Book } from 'src/app/models/book';
   styleUrls: ['./listbook.component.css']
 })
 export class ListbookComponent implements OnInit {
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private bookService: BooksService, public dialog: MatDialog,
     private toastrService: ToastrService) {
+  
     this.getAllBooks();
 
   }
   getAllBooks() {
     this.bookService.findAll().subscribe({
       next: (v) => {
-        this.dataSource = v
+        this.dataSource = new MatTableDataSource(v)
+      this.dataSource.paginator = this.paginator;
       },
       error: (e) => console.error(e),
       complete: () => console.info('complete')
     });
   }
 
-  displayedColumns: string[] = ['Title', 'author', 'genre', 'price', 'publisher', 'yearOfPublish', 'actions', 'newcol'];
-  dataSource!: Book[];
+  displayedColumns: string[] = ['Title', 'author', 'genre', 'price', 'publisher', 'yearOfPublish', 'actions'];
+  dataSource!: MatTableDataSource<Book>;
 
   ngOnInit(): void {
   }
+
   edit(row: Book) {
     const dialogRef = this.dialog.open(EditbookComponent, {
       data: row,
