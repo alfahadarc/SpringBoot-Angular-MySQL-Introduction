@@ -24,6 +24,9 @@ import { AddshopComponent } from './components/shopui/addshop/addshop.component'
 import { ListshopComponent } from './components/shopui/listshop/listshop.component';
 import { EditshopComponent } from './components/shopui/editshop/editshop.component';
 import { BooksinshopComponent } from './components/shopui/booksinshop/booksinshop.component';
+import { FooterComponent } from './components/shared/footer/footer.component';
+import { ErrorPageComponent } from './components/shared/error-page/error-page.component';
+import { DeleteConfirmComponent } from './components/shared/delete-confirm/delete-confirm.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { BooksinshopComponent } from './components/shopui/booksinshop/booksinsho
     ListshopComponent,
     EditshopComponent,
     BooksinshopComponent,
+    FooterComponent,
+    ErrorPageComponent,
+    DeleteConfirmComponent,
   ],
   imports: [
     HttpClientModule,

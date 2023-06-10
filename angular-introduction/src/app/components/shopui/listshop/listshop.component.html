@@ -4,7 +4,11 @@
             <button  mat-raised-button (click)="goAddNewShop()">Add New Shop</button>
         </div>
     </div>
-    <div class="container">
+    <div class="m-4" *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;">
+        <mat-progress-spinner color="primary" mode="indeterminate">
+        </mat-progress-spinner>
+    </div>
+    <div class="container"  [hidden]="isLoading">
 
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -59,5 +63,6 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
 </div>

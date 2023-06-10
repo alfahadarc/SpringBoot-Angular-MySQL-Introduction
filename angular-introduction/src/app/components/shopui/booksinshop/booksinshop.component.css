@@ -6,6 +6,7 @@ table{
     flex-direction: column;
     text-align: center;
     justify-content: center;
+    color: #000000;
   }
   
 .mat-cell {
@@ -14,4 +15,26 @@ table{
   }
 td.mat-cell{
     border-bottom-style: none;
+    color: #000000;
+}
+.mat-table {
+
+  background-color:rgba(255, 255, 255, 0);
+  font-weight: 400;
+  border-radius: 0px 50px 0px 0px;
+  overflow: hidden !important;
+}
+.md-table-content {
+  white-space: nowrap;
+  font-size: 1em;
+  padding: 16px 16px 16px 0;
+  height: 72px;
+}
+
+.container {
+  border-image: linear-gradient(#009FC2 0%, #0D0A0B 74%) 30;
+  border-left-width: 10px;
+  border-left-style: solid;
+  padding-left: 0%;
+
 }

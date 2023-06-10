@@ -1,6 +1,7 @@
 package com.springintro.springboot.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,5 +26,11 @@ public class BookModel implements Serializable {
     private String author;
     private String genre;
     private String publisher;
+    @ManyToMany(fetch = FetchType.EAGER,cascade ={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(name = "book_author_join",
+            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
+
+    private Set<AuthorModel> authors;
 
 }

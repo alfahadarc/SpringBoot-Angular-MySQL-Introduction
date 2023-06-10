@@ -60,19 +60,4 @@ public class AuthorController {
 
     }
 
-    @PutMapping("/authors/book/{id}")
-    public ResponseEntity<AuthorModel> updateAuthorBook(@PathVariable("id") long id, @RequestBody BookArrayModel bookList) {
-        AuthorModel author = authorService.getAuthorById(id);
-        if (author != null) {
-            List<BookModel> books = bookService.getBooksByIds(bookList.getIds());
-
-            if (!books.isEmpty()) {
-                author.getBooks().addAll(books);
-                AuthorModel updatedAuthor = authorService.addAuthor(author);
-                return ResponseEntity.ok(updatedAuthor);
-            }
-        }
-        return ResponseEntity.notFound().build();
-    }
-
 }

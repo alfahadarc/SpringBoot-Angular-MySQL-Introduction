@@ -1,11 +1,13 @@
 package com.springintro.springboot.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,9 +24,4 @@ public class AuthorModel implements Serializable {
     private long id;
     private String name;
     private String email;
-
-    @OneToMany(targetEntity = BookModel.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_book", referencedColumnName = "id")
-    private List<BookModel> books;
-
 }

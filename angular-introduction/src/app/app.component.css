@@ -1,0 +1,10 @@
+body {
+    background: rgb(110,114,135);
+background: radial-gradient(circle, rgb(155, 168, 235) 0%, rgba(105, 93, 114, 0.547)100%);
+  }
+  .bottom-fixed {
+    position: sticky;
+    left: 0;
+    bottom: 0vh;
+    width: 100%;
+  }
