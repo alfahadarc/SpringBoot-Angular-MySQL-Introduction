@@ -4,12 +4,14 @@ import {MatTableModule} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const MaterialComponents = [
   MatPaginatorModule,
     MatButtonModule,
     MatTableModule,
     MatDialogModule,
     MatSelectModule,
+    MatProgressSpinnerModule
   ];
 
 @NgModule({

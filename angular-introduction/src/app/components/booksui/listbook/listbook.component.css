@@ -1,17 +1,33 @@
-table{
-    margin-top: 10px;
-    width: 100%;
-   }
+table {
+  margin-top: 10px;
+  width: 100%;
+}
+
 .mat-header-cell {
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-  }
-  
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
 .mat-cell {
-    text-align: center;
-    justify-content:center;
-  }
-td.mat-cell{
-    border-bottom-style: none;
+  text-align: center;
+  justify-content: center;
+}
+
+td.mat-cell {
+  border-bottom-style: none;
+}
+
+.mat-table {
+
+  border-radius: 0px 50px 0px 0px;
+  overflow: hidden !important;
+}
+
+.container {
+  border-image: linear-gradient(#009FC2 0%, #0D0A0B 74%) 30;
+  border-left-width: 10px;
+  border-left-style: solid;
+  padding-left: 0%;
+
 }

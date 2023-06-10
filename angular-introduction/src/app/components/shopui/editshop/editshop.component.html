@@ -39,19 +39,23 @@
         <label for="email">Books</label>
         <div formArrayName="books">
             <div *ngFor="let book of books.controls; let i = index">
-              <b>{{book.value.title}}</b>
+                <span class="bookTitle">{{book.value.title}}</span>
               <button mat-icon-button type="button" (click)="removeBook(i)"><i class="fas fa-times-circle" style="color: #ff0000;"></i></button>
             </div>
           </div>
     </div>
 
-    <div class="form-group">
-        <mat-select formControlName="selectedBook">
-            <mat-option value="" disabled selected>Select a book</mat-option>
-            <mat-option *ngFor="let book of availableBooks" [value]="book.id">{{ book.title }}</mat-option>
-        </mat-select>
-        <button mat-raised-button type="button" (click)="addBook()" style="color:green"><i class="fas fa-plus-square fa-lg"></i>Add Book</button>
-    </div>
    
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <mat-form-field>
+        <mat-select formControlName="selectedBook">
+          <mat-option *ngFor="let book of availableBooks" [value]="book.id">{{ book.title }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button type="button" (click)="addBook()" style="color:green"><i
+          class="fas fa-plus-square fa-lg"></i>Add Book</button>
+   
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    
 </form>
